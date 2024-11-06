@@ -3,27 +3,43 @@
 class T
 {
     private :
-        int m_data;
+        int m_data_1;
+        int m_data_2;
 
     public :
-        T(int data = 0) : m_data{data} {}
-        void changeData(T *t)
+        T(int data_1 = 0, int data_2 = 0) : m_data_1{data_1}, m_data_2{data_2} 
         {
-            this = t;
+            std::cout << "Constructed" << std::endl;
+        }
+
+        ~T()
+        {
+            std::cout << "Destructed" << std::endl;
+        }
+        T setData_1(int data)
+        {
+            this->m_data_1 = data;
+            return *this;
+        }
+
+        T setData_2(int data)
+        {
+            this->m_data_2 = data;
+            return *this;
         }
 
         void print()
         {
-            std::cout << "data : " << m_data << std::endl;
+            std::cout << " data_1 : " << m_data_1 << "\n data_2 : " << m_data_2 << std::endl;
         }
 };
 
 int main()
 {
     T t;
-    T *t_ptr = new T(10);
-    
-    t.changeData(t_ptr);
+
+    t.setData_1(10).setData_2(20);
+
     t.print();
 
     return  0;
