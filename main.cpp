@@ -2,45 +2,55 @@
 
 class T
 {
-    private :
-        int m_data_1;
-        int m_data_2;
-
     public :
-        T(int data_1 = 0, int data_2 = 0) : m_data_1{data_1}, m_data_2{data_2} 
+        // Parameterised constructor - bc it has default value, param can be omitted
+        T(int size = 0) : m_size{size}, m_buffer{nullptr}
         {
-            std::cout << "Constructed" << std::endl;
+            std::cout << "Param Constructed" << std::endl;
         }
 
-        ~T()
+        // Copy constructor
+        T(const T& other)
         {
-            std::cout << "Destructed" << std::endl;
+            std::cout << "Copy Constructed" << std::endl;
+
+            m_buffer = other.m_buffer;
+            m_size = other.m_size;
         }
-        T setData_1(int data)
+
+        // Assignment operator
+        T operator=(const T& other)
         {
-            this->m_data_1 = data;
+            std::cout << "Assignment operator called" << std::endl;
+
+            m_size = other.m_size;
+            m_buffer = other.m_buffer;
+
             return *this;
         }
 
-        T setData_2(int data)
+        void details()
         {
-            this->m_data_2 = data;
-            return *this;
+            std::cout << "Pointer address : " << m_buffer << std::endl;
+            std::cout << "Array size : " << m_size << std::endl;
         }
 
-        void print()
-        {
-            std::cout << " data_1 : " << m_data_1 << "\n data_2 : " << m_data_2 << std::endl;
-        }
+    private :
+        int m_size;
+        int *m_buffer;
 };
 
 int main()
 {
-    T t;
+    T t_1{10};
+    T t_2{t_1};
+    T t_3{};
 
-    t.setData_1(10).setData_2(20);
+    t_3 = t_2;
 
-    t.print();
-
+    t_1.details();
+    t_2.details();
+    
+    
     return  0;
 }
